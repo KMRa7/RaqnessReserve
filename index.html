@@ -47,19 +47,9 @@
     }
 
     @media (max-width:600px) {
-      .side-nav {
-        right: 2px;
-        width: 30px
-      }
-
-      .side-nav a {
-        width: 28px;
-        height: 28px
-      }
-
-      .side-nav a i {
-        font-size: 12px
-      }
+      .side-nav { right: 2px; width: 30px }
+      .side-nav a { width: 28px; height: 28px }
+      .side-nav a i { font-size: 12px }
     }
 
     /* ベース */
@@ -85,18 +75,18 @@
     }
 
     h1 {
-        background: linear-gradient(135deg, #13ca5e, #0fa958);
-        color: white;
-        padding: 20px;
-        border-radius: 0 15px 0px 45px;
-        text-align: center;
-        display: block;
-        margin: -20px -15px 20px -15px;
-        font-size: 26px;
-        font-weight: 600;
-        box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.05);
-        position: relative;
-        overflow: hidden;
+      background: linear-gradient(135deg, #13ca5e, #0fa958);
+      color: white;
+      padding: 20px;
+      border-radius: 0 15px 0px 45px;
+      text-align: center;
+      display: block;
+      margin: -20px -15px 20px -15px;
+      font-size: 26px;
+      font-weight: 600;
+      box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
     }
 
     .label {
@@ -120,12 +110,16 @@
       margin-left: 8px;
       font-size: 11px
     }
+    .optional {
+      background: #6c757d;
+      color: #fff;
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 8px;
+      font-size: 11px
+    }
 
-    input[type="text"],
-    input[type="tel"],
-    select,
-    textarea,
-    input[type="datetime-local"] {
+    input[type="text"], input[type="tel"], select, textarea, input[type="datetime-local"] {
       width: 100%;
       padding: 12px;
       border: 1.5px solid #dcdcdc;
@@ -136,59 +130,35 @@
       transition: border-color .2s, box-shadow .2s
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: #13ca5e;
       box-shadow: 0 0 0 3px rgba(19, 202, 94, .15)
     }
 
-    textarea {
-      min-height: 110px;
-      resize: vertical
-    }
+    textarea { min-height: 110px; resize: vertical }
 
     /* 希望日時用（縦並び） */
-    .dt-group {
-      margin-top: 8px;
-      margin-bottom: 10px
-    }
+    .dt-group { margin-top: 8px; margin-bottom: 10px }
 
     .sub-label {
       font-size: 13px;
       font-weight: 700;
       color: #333;
       margin: 4px 0 6px;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: #f1fff6;
       border: 1px solid #bfead1;
       border-radius: 6px;
       padding: 4px 8px
     }
 
-    .note {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #666;
-      line-height: 1.6
-    }
+    .note { margin-top: 10px; font-size: 12px; color: #666; line-height: 1.6 }
 
-    .submit {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      background: #dc3545;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer
-    }
-
-    .submit:active {
-      transform: scale(.99)
-    }
+    .submit { width: 100%; padding: 14px; border: none; border-radius: 10px; background: #dc3545; color: #fff; font-size: 18px; font-weight: 700; cursor: pointer }
+    .submit:active { transform: scale(.99) }
   </style>
 </head>
 
@@ -224,22 +194,22 @@
       <option>マシンピラテスリフォーマー90分</option>
     </select>
 
-    <!-- ④ 希望日時（第1〜第3：すべて必須） -->
-    <div class="label">希望日時（第1〜第3） <span class="required">必須</span></div>
+    <!-- ④ 希望日時（第1〜第3：第1は必須／第2・第3は任意） -->
+    <div class="label">希望日時（第1〜第3） <span class="required">第1は必須・第2/第3は任意</span></div>
 
     <div class="dt-group">
-      <div class="sub-label">第1希望</div>
-      <input type="datetime-local" id="date1" aria-label="第1希望日時" />
+      <div class="sub-label">第1希望 <span class="required">必須</span></div>
+      <input type="datetime-local" id="date1" aria-label="第1希望日時（必須）" />
     </div>
 
     <div class="dt-group">
-      <div class="sub-label">第2希望</div>
-      <input type="datetime-local" id="date2" aria-label="第2希望日時" />
+      <div class="sub-label">第2希望 <span class="optional">任意</span></div>
+      <input type="datetime-local" id="date2" aria-label="第2希望日時（任意）" />
     </div>
 
     <div class="dt-group">
-      <div class="sub-label">第3希望</div>
-      <input type="datetime-local" id="date3" aria-label="第3希望日時" />
+      <div class="sub-label">第3希望 <span class="optional">任意</span></div>
+      <input type="datetime-local" id="date3" aria-label="第3希望日時（任意）" />
     </div>
 
     <!-- ⑤ 備考 -->
@@ -298,14 +268,14 @@
       const date3 = document.getElementById("date3").value;
       const note = document.getElementById("note").value.trim();
 
-      // 必須チェック：①②③④(第1〜第3)
+      // 必須チェック：①②③＋第1希望のみ
       if (!name) { alert("お名前をご入力ください。"); return; }
       if (!phone) { alert("電話番号をご入力ください。"); return; }
       if (!menu) { alert("メニューを選択してください。"); return; }
-      if (!date1 || !date2 || !date3) { alert("希望日時は第1〜第3までご入力ください。"); return; }
+      if (!date1) { alert("希望日時は第1希望をご入力ください。第2・第3は任意です。"); return; }
 
       const message =
-        `【ラクネス予約】
+`【ラクネス予約】
 お名前：${name}
 
 電話番号：${phone}
@@ -314,8 +284,8 @@
 
 【希望日時】
 ・第1希望：${formatJP(date1)}
-・第2希望：${formatJP(date2)}
-・第3希望：${formatJP(date3)}
+・第2希望：${formatJP(date2) || "（未入力）"}
+・第3希望：${formatJP(date3) || "（未入力）"}
 
 備考：${note || "（なし）"}`;
 
